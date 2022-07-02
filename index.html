@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6708018540439187"
+    crossorigin="anonymous"></script>
+<head>
+    <script>// Import the functions you need from the SDKs you need
+        //npm install firebase
+        //npm install -g firebase-tools
+        //firebase login
+        //firebase init
+        //firebase deploy
+        import { initializeApp } from "firebase/app";
+        import { getAnalytics } from "firebase/analytics";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBC41XVQcBlilSCBbvVdwxVSP8Rmmwgn5c",
+            authDomain: "ai-test-87a4e.firebaseapp.com",
+            projectId: "ai-test-87a4e",
+            storageBucket: "ai-test-87a4e.appspot.com",
+            messagingSenderId: "11162558078",
+            appId: "1:11162558078:web:91318fd09109853bffc22f",
+            measurementId: "G-KV0XP6B9SK"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+    <script type="text/javascript">
+
+        function clip() {
+
+            var url = 'https://onlyg.net/';
+            var textarea = document.createElement("textarea");
+            document.body.appendChild(textarea);
+            url = window.document.location.href;
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("URL이 복사되었습니다.")
+        }
+
+    </script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <title>그 해 우리는 배우 닮은 꼴 테스트</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6218827f6f999a19"></script>
+</head>
+
+<body style="overflow-x: hidden; overflow-y: auto;">
+    <section class="section">
+        <h1 class="title">
+            <strong>그 해 우리는 배우</strong>
+            <br />
+            <strong>닮은 꼴 테스트</strong>
+        </h1>
+    </section>
+                    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                    <div class="file-upload">
+                        <div class="image-upload-wrap">
+                            <input class="file-upload-input" type="file" onchange="readURL(this);" accept="image/*" />
+                            <div class="drag-text">
+                                <img src="up.png" class="upload-icon" />
+                                <h3>
+                                    얼굴 사진을<br />
+                                    올려놓거나 눌러서<br />
+                                    업로드 하세요!
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="text-privacy">
+                            <h5>*사진은 절대 어디에도 저장되지 않습니다*</h5>
+                        </div>
+                        <div class="file-upload-content">
+                            <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+                            <div class="sajin_position"></div>
+
+                            <div id="loading" class="animated bounce">
+                                <div class="spinner-border" role="status"></div>
+                                <p class="text-center">AI가 당신의 얼굴을 분석중입니다.</p>
+                            </div>
+
+                            <p class="result-message"></p>
+                            <p class="result-message2"></p>
+                            <div id="label-container" class="d-flex flex-column justify-content-around"></div>
+                            <div class="addthis_inline_share_toolbox"></div>
+                            <div class="pt-3 image-title-wrap">
+                                <button type="button p-2" class="try-again-btn" onclick="window.location.reload();"
+                                    id="btn">
+                                    <span class="try-again-text">다른 사진으로 재시도</span>
+                                </button>
+                                <button type="button p-2" class="try-again-btn" onclick="clip();" id="btn">
+                                    <span class="try-again-text">공유하기</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="footer pt-5 container d-flex justify-content-center">
+                        <p>
+                            서비스를 이용하면 이용약관에 동의하는 것을 간주합니다<br />
+                            &copy; 권강빈 KANGBIN 2022. All Rights Reserved.
+                        </p>
+                    </footer>
+                    <div class="privacy">
+                        <a href="lol.html" style="color: _black;" target="_black">privacy</a>
+                    </div>
+                    <div id="webcam-container"></div>
+                    <div id="label-container"></div>
+                    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+                    <script
+                        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+                    <script type="text/javascript">
+                        const sajin = document.querySelector('.sajin_position');
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    $('.image-upload-wrap').hide();
+
+                                    $('.file-upload-image').attr('src', e.target.result);
+                                    $('.file-upload-content').show();
+
+                                    $('.image-title').html(input.files[0].name);
+                                };
+
+                                reader.readAsDataURL(input.files[0]);
+                                init().then(() => {
+                                    predict();
+                                });
+                            } else {
+                                removeUpload();
+                            }
+                        }
+
+                        function removeUpload() {
+                            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+                            $('.file-upload-content').hide();
+                            $('.image-upload-wrap').show();
+                        }
+                        $('.image-upload-wrap').bind('dragover', function () {
+                            $('.image-upload-wrap').addClass('image-dropping');
+                        });
+                        $('.image-upload-wrap').bind('dragleave', function () {
+                            $('.image-upload-wrap').removeClass('image-dropping');
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        // More API functions here:
+                        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+                        // the link to your model provided by Teachable Machine export panel
+                        const URL = 'https://teachablemachine.withgoogle.com/models/Gz5FH_-6F/';
+
+                        let model, webcam, labelContainer, maxPredictions;
+
+                        // Load the image model and setup the webcam
+                        async function init() {
+                            const modelURL = URL + 'model.json';
+                            const metadataURL = URL + 'metadata.json';
+
+                            // load the model and metadata
+                            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+                            // or files from your local hard drive
+                            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+                            model = await tmImage.load(modelURL, metadataURL);
+                            maxPredictions = model.getTotalClasses();
+
+                            // append elements to the DOM
+                            labelContainer = document.getElementById('label-container');
+                            for (let i = 0; i < maxPredictions; i++) {
+                                // and class labels
+                                labelContainer.appendChild(document.createElement('div'));
+                            }
+                        }
+
+                        // run the webcam image through the image model
+                        async function predict() {
+                            // predict can take in an image, video or canvas html element
+                            var image = document.getElementById('face-image');
+                            const prediction = await model.predict(image, false);
+                            prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+                            console.log(prediction[0].className);
+                            var resultTitle, resultExplain;
+                            switch (prediction[0].className) {
+                                case '국연수':
+                                    resultTitle = '국연수';
+                                    resultExplain = '당신은 국연수역의 <br> 김다미 배우상 입니다!';
+                                    $('.file-upload-image').hide();
+                                    $('.animated').hide();
+                                    sajin.innerHTML = '<img class="sajin" src ="kimdami.jpg"/>';
+                                    break;
+                                case '최웅':
+                                    resultTitle = '최웅';
+                                    resultExplain = '당신은 최웅역의 <br> 최우식 배우상 입니다!';
+                                    $('.file-upload-image').hide();
+                                    $('.animated').hide();
+                                    sajin.innerHTML = '<img class="sajin" src ="choi.jpg"/>';
+                                    break;
+                                case '이솔이':
+                                    resultTitle = '이솔이';
+                                    resultExplain = '당신은 이솔이역의 <br> 박진주 배우상 입니다!';
+                                    $('.file-upload-image').hide();
+                                    $('.animated').hide();
+                                    sajin.innerHTML = '<img class="sajin" src ="sol.jpg"/>';
+                                    break;
+                                case '김지웅':
+                                    resultTitle = '김지웅';
+                                    resultExplain = '당신은 김지웅역의 <br> 김성철 배우상 입니다!';
+                                    $('.file-upload-image').hide();
+                                    $('.animated').hide();
+                                    sajin.innerHTML = '<img class="sajin" src ="kimjung.jpg"/>';
+                                    break;
+                                case '엔제이':
+                                    resultTitle = '엔제이';
+                                    resultExplain = '당신은 엔제이역의 <br> 노정의 배우상 입니다!';
+                                    $('.file-upload-image').hide();
+                                    $('.animated').hide();
+                                    sajin.innerHTML = '<img class="sajin" src ="nj.jpg"/>';
+                                    break;
+                                case '구은호':
+                                    resultTitle = '구은호';
+                                    resultExplain = '당신은 구은호역의 <br> 안동구 배우상 입니다!';
+                                    $('.file-upload-image').hide();
+                                    $('.animated').hide();
+                                    sajin.innerHTML = '<img class="sajin" src ="eaunho.jpg"/>';
+                                    break;
+                                case '정채란':
+                                    resultTitle = '정채란';
+                                    resultExplain = '당신은 정채란역의 <br> 전혜원 배우상 입니다!';
+                                    $('.file-upload-image').hide();
+                                    $('.animated').hide();
+                                    sajin.innerHTML = '<img class="sajin" src ="jun.jpg"/>';
+                                    break;
+                                default:
+                                    resultTitle = '알수없음';
+                                    resultExplain = '';
+                            }
+                            var title =
+                                "<div class='" + prediction[0].className + "-title'>" + resultTitle + '</div>';
+                            var explain = "<div class='-explain'>" + resultExplain + '</div>';
+                            $('.result-message').html(title + explain);
+                            var barWidth;
+                            for (let i = 0; i < maxPredictions; i++) {
+                                if (prediction[i].probability.toFixed(2) > 0.1) {
+                                    barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + '%';
+                                } else if (prediction[i].probability.toFixed(2) >= 0.01) {
+                                    barWidth = '4%';
+                                } else {
+                                    barWidth = '2%';
+                                }
+                                var labelTitle;
+                                switch (prediction[i].className) {
+                                    case '국연수':
+                                        labelTitle = '국연수';
+                                        break;
+                                    case '최웅':
+                                        labelTitle = '최웅';
+                                        break;
+                                    case '이솔이':
+                                        labelTitle = '이솔이';
+                                        break;
+                                    case '김지웅':
+                                        labelTitle = '김지웅';
+                                        break;
+                                    case '엔제이':
+                                        labelTitle = '엔제이';
+                                        break;
+                                    case '구은호':
+                                        labelTitle = '구은호';
+                                        break;
+                                    case '정채란':
+                                        labelTitle = '정채란';
+                                        break;
+                                    default:
+                                        labelTitle = '알수없음';
+                                }
+                                var label =
+                                    "<div class='korea-label d-flex align-items-center'>" +
+                                    labelTitle +
+                                    '</div>';
+                                var bar =
+                                    "<div class='bar-container position-relative container'><div class='" +
+                                    prediction[i].className +
+                                    "-box'></div><div class='d-flex justify-content-center align-items-center " +
+                                    prediction[i].className +
+                                    "-bar' style='width: " +
+                                    barWidth +
+                                    "'><span class='d-block percent-text'>" +
+                                    Math.round(prediction[i].probability.toFixed(2) * 100) +
+                                    '%</span></div></div>';
+                                labelContainer.childNodes[i].innerHTML = label + bar;
+                            }
+                        }
+                    </script>
+                    <script>
+                        function cb(response) {
+                            document.getElementById('visits').innerText = response.value;
+                        }
+                    </script>
+
+</body>
+<!----
+  Copyright (c) 2022 by Aaron Vanston
+  (https://codepen.io/aaronvanston/pen/yNYOXR) Permission is hereby granted,
+  free of charge, to any person obtaining a copy of this software and associated
+  documentation files (the "Software"), to deal in the Software without
+  restriction, including without limitation the rights to use, copy, modify,
+  merge, publish, distribute, sublicense, and/or sell copies of the Software,
+  and to permit persons to whom the Software is furnished to do so, subject to
+  the following conditions: The above copyright notice and this permission
+  notice shall be included in all copies or substantial portions of the
+  Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+  EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  DEALINGS IN THE SOFTWARE.
+  ---->
+</html>
